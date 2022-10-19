@@ -2,7 +2,7 @@ let PTM = 20;
 let sprites = [];
 let world, renderer, particleSystem;
 
-let gravity = new Box2D.b2Vec2(0, -100);
+// let gravity = new Box2D.b2Vec2(0, -10);
 
 function getRandom(min, max) {
   return Math.random() * (max - min) + min;
@@ -46,7 +46,7 @@ function createParticleSystem() {
 }
 
 function spawnParticles(radius, x, y) {
-  let color = new Box2D.b2ParticleColor(128, 128, 128, 128);
+  let color = new Box2D.b2ParticleColor(255, 255, 0, 0);
   // flags
   let flags = 0 << 0;
 
@@ -85,12 +85,12 @@ function init() {
   renderer.stage.position.y = h / 2;
 
   // world
-  world = new Box2D.b2World(gravity);
+  world = new Box2D.b2World();
 
   createBox(0, -h / 2 / PTM, w / PTM, 1, true);
   createBox(0, h / 2 / PTM, w / PTM, 1, true);
-  createBox(-w / 2 / PTM, h / PTM, 1, h, true);
-  createBox(w / 2 / PTM, h / PTM, 1, h, true);
+  createBox(-w / 2 / PTM, 0, 1, h / PTM, true);
+  createBox(w / 2 / PTM, 0, 1, h / PTM, true);
 
   createParticleSystem();
 
@@ -103,12 +103,22 @@ function init() {
   });
 
   // update loop
+  let age = 0;
   function update() {
     //particleSystem.DestroyParticlesInShape(killerShape, killerTransform);
     world.Step(1 / 60, 8, 3);
+
+    // Set gravity
+    let gravity = new Box2D.b2Vec2(
+      Math.cos(age * 2) * 10,
+      Math.sin(age * 2) * 10
+    );
+    world.SetGravity(gravity);
+    age += 1 / 60;
   }
   window.setInterval(update, 1000 / 60);
-  window.setInterval(spawnRain, 10);
+  // window.setInterval(spawnRain, 10);
+  spawnParticles(10, 0, 0);
 
   renderer.view.addEventListener('click', function (e) {
     let x = (e.clientX - renderer.view.offsetLeft - w / 2) / PTM;
