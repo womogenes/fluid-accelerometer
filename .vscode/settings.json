@@ -1,3 +1,10 @@
 {
-  "cSpell.words": ["Liquidfun", "particleSystemSprite", "PIXI"]
+  "cSpell.words": ["Liquidfun", "particleSystemSprite", "PIXI"],
+  "liveServer.settings.port": 5501,
+  "liveServer.settings.https": {
+    "enable": true, //set it true to enable the feature.
+    "cert": "D:\\Users\\willi\\Documents\\libs\\certificates\\primary.crt", //full path of the certificate
+    "key": "D:\\Users\\willi\\Documents\\libs\\certificates\\primary.key", //full path of the private key
+    "passphrase": ""
+  }
 }

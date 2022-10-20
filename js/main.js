@@ -1,6 +1,9 @@
-let PTM = 20;
+export let PTM = 20;
 let sprites = [];
-let world, renderer, particleSystem;
+let world, particleSystem;
+import { gravity } from './gyro.js';
+import { LiquidfunSprite } from './lib/liquidfun-renderer.js';
+export let renderer;
 
 // let gravity = new Box2D.b2Vec2(0, -10);
 
@@ -41,7 +44,7 @@ function createParticleSystem() {
   let dummy = PIXI.Sprite.from(PIXI.Texture.EMPTY);
   renderer.stage.addChild(dummy);
 
-  particleSystemSprite = new LiquidfunSprite(particleSystem);
+  let particleSystemSprite = new LiquidfunSprite(particleSystem);
   renderer.stage.addChild(particleSystemSprite);
 }
 
@@ -57,7 +60,7 @@ function spawnParticles(radius, x, y) {
   pgd.set_color(color);
   pgd.set_flags(flags);
   shape.set_m_p(new Box2D.b2Vec2(x, y));
-  group = particleSystem.CreateParticleGroup(pgd);
+  let group = particleSystem.CreateParticleGroup(pgd);
   return group;
 }
 
@@ -106,14 +109,11 @@ function init() {
   let age = 0;
   function update() {
     //particleSystem.DestroyParticlesInShape(killerShape, killerTransform);
-    world.Step(1 / 60, 8, 3);
+    world.Step(1 / 30, 80, 30);
 
     // Set gravity
-    let gravity = new Box2D.b2Vec2(
-      Math.cos(age * 2) * 10,
-      Math.sin(age * 2) * 10
-    );
-    world.SetGravity(gravity);
+    let gravityVec = new Box2D.b2Vec2(gravity.x, gravity.y);
+    world.SetGravity(gravityVec);
     age += 1 / 60;
   }
   window.setInterval(update, 1000 / 60);
