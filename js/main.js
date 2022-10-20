@@ -39,7 +39,7 @@ function createParticleSystem() {
   let psd = new Box2D.b2ParticleSystemDef();
   psd.set_radius(0.1);
   particleSystem = world.CreateParticleSystem(psd);
-  particleSystem.SetMaxParticleCount(5000);
+  particleSystem.SetMaxParticleCount(10000);
 
   let dummy = PIXI.Sprite.from(PIXI.Texture.EMPTY);
   renderer.stage.addChild(dummy);
@@ -90,10 +90,10 @@ function init() {
   // world
   world = new Box2D.b2World();
 
-  createBox(0, -h / 2 / PTM, w / PTM, 1, true);
-  createBox(0, h / 2 / PTM, w / PTM, 1, true);
-  createBox(-w / 2 / PTM, 0, 1, h / PTM, true);
-  createBox(w / 2 / PTM, 0, 1, h / PTM, true);
+  createBox(0, -h / 2 / PTM - 1, w / PTM, 1, true);
+  createBox(0, h / 2 / PTM + 1, w / PTM, 1, true);
+  createBox(-w / 2 / PTM - 1, 0, 1, h / PTM, true);
+  createBox(w / 2 / PTM + 1, 0, 1, h / PTM, true);
 
   createParticleSystem();
 
@@ -120,9 +120,14 @@ function init() {
   // window.setInterval(spawnRain, 10);
   spawnParticles(10, 0, 0);
 
-  renderer.view.addEventListener('click', function (e) {
-    let x = (e.clientX - renderer.view.offsetLeft - w / 2) / PTM;
-    let y = (-(e.clientY - renderer.view.offsetTop) + h / 2) / PTM;
+  renderer.view.addEventListener('touchend', function (e) {
+    var evt = typeof e.originalEvent === 'undefined' ? e : e.originalEvent;
+    var touch = evt.changedTouches[evt.changedTouches.length - 1];
+    let clientX = touch.pageX;
+    let clientY = touch.pageY;
+
+    let x = (clientX - renderer.view.offsetLeft - w / 2) / PTM;
+    let y = (-(clientY - renderer.view.offsetTop) + h / 2) / PTM;
     if (e.shiftKey) {
       spawnParticles(1, x, y);
     } else {
