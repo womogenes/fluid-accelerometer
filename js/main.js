@@ -109,7 +109,7 @@ function init() {
   let age = 0;
   function update() {
     //particleSystem.DestroyParticlesInShape(killerShape, killerTransform);
-    world.Step(1 / 30, 80, 30);
+    world.Step(1 / 30, 8, 3);
 
     // Set gravity
     let gravityVec = new Box2D.b2Vec2(gravity.x, gravity.y);

@@ -126,7 +126,7 @@ function LiquidfunRenderer(renderer) {
   this.sprites = [];
   this.quad = new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]);
   this.textures = null;
-  this.blurRadius = 3.2;
+  this.blurRadius = 3;
   this.threshold = 0.5;
 }
 

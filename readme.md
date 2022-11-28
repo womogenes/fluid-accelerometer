@@ -1,8 +1,8 @@
-# liquidfun.js Demo
+# Fluid Accelerometer
 
-(Originally from https://github.com/doebi/liquidfun.js-demo)
+(Fluid simulation code borrowed from https://github.com/doebi/liquidfun.js-demo)
 
-This project showcases the usage of https://github.com/doebi/liquidfun.js
+This project uses the [liquidfun.js](https://github.com/doebi/liquidfun.js) library and makes a fluid respond to your mobile devices' accelerometer!
 
 **A live demo can be found at:**
-https://doeberl.at/liquidfun.js-demo/
+https://womogenes.github.io/fluid-accelerometer/
