@@ -118,7 +118,7 @@ function init() {
   }
   window.setInterval(update, 1000 / 60);
   // window.setInterval(spawnRain, 10);
-  spawnParticles(10, 0, 0);
+  spawnParticles(5, 0, 0);
 
   renderer.view.addEventListener('touchend', function (e) {
     var evt = typeof e.originalEvent === 'undefined' ? e : e.originalEvent;
