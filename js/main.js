@@ -110,6 +110,7 @@ function init() {
   function update() {
     //particleSystem.DestroyParticlesInShape(killerShape, killerTransform);
     world.Step(1 / 30, 8, 3);
+    if (gravity === undefined) return;
 
     // Set gravity
     let gravityVec = new Box2D.b2Vec2(gravity.x, gravity.y);
@@ -128,6 +129,16 @@ function init() {
 
     let x = (clientX - renderer.view.offsetLeft - w / 2) / PTM;
     let y = (-(clientY - renderer.view.offsetTop) + h / 2) / PTM;
+    if (e.shiftKey) {
+      spawnParticles(1, x, y);
+    } else {
+      createBox(x, y, 1, 1, e.ctrlKey);
+    }
+  });
+
+  renderer.view.addEventListener('click', function (e) {
+    let x = (e.clientX - renderer.view.offsetLeft - w / 2) / PTM;
+    let y = (-(e.clientY - renderer.view.offsetTop) + h / 2) / PTM;
     if (e.shiftKey) {
       spawnParticles(1, x, y);
     } else {

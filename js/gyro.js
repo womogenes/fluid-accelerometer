@@ -1,20 +1,19 @@
-const $ = document.querySelector.bind(document);
-
-const format = (value) => {
-  return (Math.round(value * 1000) / 1000).toFixed(3).padStart(6, ' ');
-};
-
 export let gravity;
 
 const motionHandler = (event) => {
   gravity = event.accelerationIncludingGravity;
 };
 
+if (!DeviceMotionEvent.requestPermission) {
+  alert(
+    'Device motion API not available. 🙁 Try loading this page on a mobile device, such as a phone or tablet.'
+  );
+}
+
 window.startCapture = () => {
   if (!DeviceMotionEvent.requestPermission) {
     return;
   }
-
   DeviceMotionEvent.requestPermission()
     .then((response) => {
       if (response === 'granted') {
@@ -25,3 +24,4 @@ window.startCapture = () => {
 };
 
 document.body.addEventListener('touchend', startCapture);
+document.body.addEventListener('mouseup', startCapture);
